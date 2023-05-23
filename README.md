@@ -23,19 +23,19 @@
 
 ## API 기능 설명
 - 태그별 순위 조회 RestfulAPI 개발
-  1) 인기
+  - 인기
 ```
 localhost:8080/api/v1/market/stocks/popularity
 ```
-  2) 상승
+  - 상승
 ```
 localhost:8080/api/v1/market/stocks/rise
 ```
-  3) 하락
+  - 하락
 ```
 localhost:8080/api/v1/market/stocks/fall
 ```
-  4) 거래량
+  - 거래량
 ```
 localhost:8080/api/v1/market/stocks/volume
 ```
