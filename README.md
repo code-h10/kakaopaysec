@@ -97,7 +97,6 @@
 ---
 ## 해결 방법
 1. 인기순위 조회
-   - URL
 ```
 GET localhost:8080/api/v1/market/stocks/popularity
 ```
@@ -107,7 +106,6 @@ GET localhost:8080/api/v1/market/stocks/popularity
    - 조회수 테스트 API GET localhost:8080/api/v1/test/stocks/{stockCode}
 
 2. 상승 조회
-- URL
 ```
 GET localhost:8080/api/v1/market/stocks/rise
 ```
@@ -115,7 +113,6 @@ GET localhost:8080/api/v1/market/stocks/rise
 - 첫 상장된 주식의 경우 오늘 시가 대비 현재가격을 백분율로 구하여 구현했습니다.
 
 3. 하락 조회
-- URL
 ```
 GET localhost:8080/api/v1/market/stocks/fall
 ```
@@ -123,7 +120,6 @@ GET localhost:8080/api/v1/market/stocks/fall
 - 첫 상장된 주식의 경우 오늘 시가 대비 현재가격을 백분율로 구하여 구현했습니다.
 
 4. 거래량 조회
-- URL
 ```
 GET localhost:8080/api/v1/market/stocks/volume
 ```
