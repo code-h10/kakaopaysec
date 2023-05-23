@@ -96,17 +96,17 @@
 - 호출시 관련 데이터를 랜덤으로 변경할 수 있는 테스트 API 구현
 ---
 ## 해결 방법
-1) 인기순위 조회
-- URL
+1. 인기순위 조회
+   - URL
 ```
 GET localhost:8080/api/v1/market/stocks/popularity
 ```
-- 인기순위는 임베디드 레디스와 스케줄러를 사용했습니다.
-- 종목 상세 조회 시 매번 DB에 조회수를 업데이트를 처리하게 되면 비효율적이므로 캐시메모리에 해당종목 코드와 조회수를 저장한 뒤 5분간격으로 해당 종목과 조회수를 DB에 업데이트하는 방식으로 처리했습니다.
-- 다중 서버 환경에서 서버의 수만큼 조회수를 DB에 업데이트처리하는 스케줄러가 중복 실행되지 않도록 ShedLock 를 사용하여 처리했습니다.
-- 조회수 테스트 API GET localhost:8080/api/v1/test/stocks/{stockCode}
+   - 인기순위는 임베디드 레디스와 스케줄러를 사용했습니다.
+   - 종목 상세 조회 시 매번 DB에 조회수를 업데이트를 처리하게 되면 비효율적이므로 캐시메모리에 해당종목 코드와 조회수를 저장한 뒤 5분간격으로 해당 종목과 조회수를 DB에 업데이트하는 방식으로 처리했습니다.
+   - 다중 서버 환경에서 서버의 수만큼 조회수를 DB에 업데이트처리하는 스케줄러가 중복 실행되지 않도록 ShedLock 를 사용하여 처리했습니다.
+   - 조회수 테스트 API GET localhost:8080/api/v1/test/stocks/{stockCode}
 
-2) 상승 조회
+2. 상승 조회
 - URL
 ```
 GET localhost:8080/api/v1/market/stocks/rise
@@ -114,7 +114,7 @@ GET localhost:8080/api/v1/market/stocks/rise
 - STOCKS_PRICE_HISTORY 테이블의 어제의 종가 대비 오늘의 가격을 백분률로 구하여 구현했습니다.
 - 첫 상장된 주식의 경우 오늘 시가 대비 현재가격을 백분율로 구하여 구현했습니다.
 
-3) 하락 조회
+3. 하락 조회
 - URL
 ```
 GET localhost:8080/api/v1/market/stocks/fall
@@ -122,7 +122,7 @@ GET localhost:8080/api/v1/market/stocks/fall
 - STOCKS_PRICE_HISTORY 테이블의 어제의 종가 대비 오늘의 가격을 백분률로 구하여 구현했습니다.
 - 첫 상장된 주식의 경우 오늘 시가 대비 현재가격을 백분율로 구하여 구현했습니다.
 
-4) 거래량 조회
+4. 거래량 조회
 - URL
 ```
 GET localhost:8080/api/v1/market/stocks/volume
@@ -140,7 +140,7 @@ POST localhost:8080/api/v1/test/transactions
 }
 ```
 
-5) 데이터 랜덤으로 변경하는 테스트용API
+5. 데이터 랜덤으로 변경하는 테스트용API
 ```
 GET localhost:8080/api/v1/market/stocks/random
 ```
