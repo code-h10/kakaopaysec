@@ -78,14 +78,14 @@
 ---
 
 ## 요구사항
-- 실시간 순위 서비스 제공에 필요한 Restful API를 구현합니다.
+- 실시간 순위 서비스 제공에 필요한 RestfulAPI를 구현합니다.
 - Application이 로딩될 때 기본 데이터가 DB에 적재되도록 합니다.
   1) 과제 검토를 위해 별다른 DB관련 사전작업 없이 애플리케이션만 실행하면 동작되도록 데이터가 설정되어야합니다.
   2) 주식 종목에 대한 정보는 첨부된 데이터를 참고하시면 됩니다.
 - 데이터 테이블 구조는 효율적인 방식으로 스스로 설계 합니다.
 - 각 기능 및 제약 사항에 대한 단위테스트를 작성합니다. 
 ---
-## API 상세 기능 설명
+## RestfulAPI 상세 기능 설명
 - 아래는 과제를 위한 4가지 조회 방법
   - 인기: "사람들이 많이본"
   - 상승: "가격이 많이 오른"
@@ -97,16 +97,17 @@
 ---
 ## 해결 방법
 1) 인기순위 조회
-  - URL
+- URL
 ```
 GET localhost:8080/api/v1/market/stocks/popularity
 ```
-  - 인기순위는 임베디드 레디스와 스케줄러를 사용하였습니다.
-  - 종목 상세 조회 시 매번 DB에 조회수를 업데이트를 처리하게 되면 비효율적이므로 캐시메모리에 해당종목 코드와 조회수를 저장한 뒤 5분간격으로 해당 종목과 조회수를 DB에 업데이트하는 방식으로 처리하였습니다.
-  - 다중 서버 환경에서 서버의 수만큼 조회수를 DB에 업데이트 스케줄러가 중복 실행되지 않도록 ShedLock 를 사용하여 처리하였습니다.
+- 인기순위는 임베디드 레디스와 스케줄러를 사용했습니다.
+- 종목 상세 조회 시 매번 DB에 조회수를 업데이트를 처리하게 되면 비효율적이므로 캐시메모리에 해당종목 코드와 조회수를 저장한 뒤 5분간격으로 해당 종목과 조회수를 DB에 업데이트하는 방식으로 처리했습니다.
+- 다중 서버 환경에서 서버의 수만큼 조회수를 DB에 업데이트처리하는 스케줄러가 중복 실행되지 않도록 ShedLock 를 사용하여 처리했습니다.
+- 조회수 테스트 API GET localhost:8080/api/v1/test/stocks/{stockCode}
 
 2) 상승 조회
-  - URL
+- URL
 ```
 GET localhost:8080/api/v1/market/stocks/rise
 ```
@@ -114,7 +115,7 @@ GET localhost:8080/api/v1/market/stocks/rise
 - 첫 상장된 주식의 경우 오늘 시가 대비 현재가격을 백분율로 구하여 구현했습니다.
 
 3) 하락 조회
-  - URL
+- URL
 ```
 GET localhost:8080/api/v1/market/stocks/fall
 ```
@@ -122,12 +123,12 @@ GET localhost:8080/api/v1/market/stocks/fall
 - 첫 상장된 주식의 경우 오늘 시가 대비 현재가격을 백분율로 구하여 구현했습니다.
 
 4) 거래량 조회
-  - URL
+- URL
 ```
 GET localhost:8080/api/v1/market/stocks/volume
 ```
 - 거래 체결 시 해당 STOCKS_PRICE_HISTORY 테이블의 거래량 정보에 업데이트 되도록 구현했습니다. 
-- 아래의 API는 TRANSACTIONS 테이블에 체결된 거래 정보를 저장 시 STOCKS_PRICE_HISTORY 테이블의 현재거래가격과 거래량에 반영되도록 처리 하였습니다.
+- 아래의 API는 TRANSACTIONS 테이블에 체결된 거래 정보를 저장 시 STOCKS_PRICE_HISTORY 테이블의 현재거래가격과 거래량에 반영되도록 처리했습니다.
 ```
 POST localhost:8080/api/v1/test/transactions
 {
