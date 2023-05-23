@@ -11,7 +11,7 @@
   - Gradle
   - junit 5
   - Embedded Redis
-
+---
 ## 프로젝트 구조
 ```
 ├── com.kakaopaysec.stock
@@ -27,6 +27,7 @@
 │   │   └── enums
 └── StockApplication.java
 ``` 
+---
 ## 테이블 구조
 - 주식 종목 테이블
 
