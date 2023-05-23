@@ -27,15 +27,15 @@
 ```
 localhost:8080/api/v1/market/stocks/popularity
 ```
-  3) 상승
+  2) 상승
 ```
 localhost:8080/api/v1/market/stocks/rise
 ```
-  5) 하락
+  3) 하락
 ```
 localhost:8080/api/v1/market/stocks/fall
 ```
-  7) 거래량
+  4) 거래량
 ```
 localhost:8080/api/v1/market/stocks/volume
 ```
