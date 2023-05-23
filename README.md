@@ -31,49 +31,45 @@
 - 주식 종목 테이블
 |컬럼|설명|기타|
 |------|---|---|
-|STOCK_CODE|종목코드||
-|NAME|종목명||
+|STOCK_CODE|종목코드| |
+|NAME|종목명| |
 
-|제목|내용|설명|
-|------|---|---|
-|테스트1|테스트2|테스트3|
-|테스트1|테스트2|테스트3|
-|테스트1|테스트2|테스트3|
+
 
 - 일별 주식 가격 정보 테이블
 |컬럼|설명|기타|
 |------|---|---|
-|STOCK_CODE|종목코드||
-|YESTERDAY_CLOSE_PRICE|어제종가||
-|OPEN_PRICE|시가||
-|CLOSE_PRICE|종가||
-|HIGH_PRICE|최고가||
-|LOW_PRICE|최저가||
-|CURRENT_PRICE|현재가||
-|TRANSACTION_VOLUME|거래량||
+|STOCK_CODE|종목코드| |
+|YESTERDAY_CLOSE_PRICE|어제종가| |
+|OPEN_PRICE|시가| |
+|CLOSE_PRICE|종가| |
+|HIGH_PRICE|최고가| |
+|LOW_PRICE|최저가| |
+|CURRENT_PRICE|현재가| |
+|TRANSACTION_VOLUME|거래량| |
 
 - 주식 거래 테이블
 |컬럼|설명|기타|
 |------|---|---|
-|TYPE|매도/매수||
-|STOCK_CODE|종목코드||
-|USER_ID|사용자ID||
-|QUANTITY|거래수량||
-|PRICE|거래가격||
-|FEE|수수료||
+|TYPE|매도/매수| |
+|STOCK_CODE|종목코드| |
+|USER_ID|사용자ID| |
+|QUANTITY|거래수량| |
+|PRICE|거래가격| |
+|FEE|수수료| |
 
 - 종목별 조회수 저장 테이블
 |컬럼|설명|기타|
 |------|---|---|
-|STOCK_CODE|종목코드||
-|VIEWS_COUNT|조회수||
+|STOCK_CODE|종목코드| |
+|VIEWS_COUNT|조회수| |
 
 - 사용자 주식 Wallet 테이블
 |컬럼|설명|기타|
 |------|---|---|
-|USER_ID|사용자ID||
-|STOCK_CODE|종목코드||
-|QUANTITY|보유수량||
+|USER_ID|사용자ID| |
+|STOCK_CODE|종목코드| |
+|QUANTITY|보유수량| |
 
 
 ## 요구사항
