@@ -96,7 +96,7 @@
 - 호출시 관련 데이터를 랜덤으로 변경할 수 있는 테스트 API 구현
 ---
 ## 해결 방법
-- 인기순위 조회
+1) 인기순위 조회
   - URL
 ```
 GET localhost:8080/api/v1/market/stocks/popularity
