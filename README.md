@@ -23,7 +23,7 @@
 
 ## API 기능 설명
 - 태그별 순위 조회 RestfulAPI 개발
-  - 인기
+- 인기
 ```
 localhost:8080/api/v1/market/stocks/popularity
 ```
