@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;INIT=CREATE SCHEMA IF NOT EXISTS shedlock;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MySQL;
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console.enabled: true
+  jpa:
+      defer-datasource-initialization: true
+---
+mybatis:
+  configuration.map-underscore-to-camel-case: true
+  mapper-locations: mybatis-mapper/*.xml
+  lazy-initialization: true
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
+---
+spring:
+  redis:
+    host: localhost
+    port: 6379
+---
+spring:
+  profiles:
+    active: local

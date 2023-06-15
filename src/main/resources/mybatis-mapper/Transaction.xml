@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaopaysec.stock.repository.TransactionRepository">
+
+    <select id="getAll" resultType="com.kakaopaysec.stock.models.Transactions">
+        SELECT ID,
+        TYPE,
+        STOCK_CODE,
+        USER_ID,
+        QUANTITY,
+        PRICE,
+        FEE,
+        CREATED_DATE,
+        UPDATED_DATE
+        FROM TRANSACTION
+    </select>
+
+    <select id="getByUserId" parameterType="java.lang.Integer" resultType="com.kakaopaysec.stock.models.Transactions">
+        SELECT ID,
+               TYPE,
+               STOCK_CODE,
+               USER_ID,
+               QUANTITY,
+               PRICE,
+               FEE,
+               CREATED_DATE,
+               UPDATED_DATE
+        FROM TRANSACTION
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <select id="getByType" parameterType="java.lang.Integer" resultType="com.kakaopaysec.stock.models.Transactions">
+        SELECT ID,
+               TYPE,
+               STOCK_CODE,
+               USER_ID,
+               QUANTITY,
+               PRICE,
+               FEE,
+               CREATED_DATE,
+               UPDATED_DATE
+        FROM TRANSACTION
+        WHERE TYPE = #{type}
+        ORDER BY CREATED_DATE DESC
+    </select>
+
+    <select id="getByStockCode" parameterType="java.lang.String" resultType="com.kakaopaysec.stock.models.Transactions">
+        SELECT ID,
+        TYPE,
+        STOCK_CODE,
+        USER_ID,
+        QUANTITY,
+        PRICE,
+        FEE,
+        CREATED_DATE,
+        UPDATED_DATE
+        FROM TRANSACTION
+        WHERE STOCK_CODE = #{stockCode}
+        ORDER BY CREATED_DATE DESC
+    </select>
+
+    <select id="getById" parameterType="java.lang.Integer" resultType="com.kakaopaysec.stock.models.Transactions">
+        SELECT ID,
+        TYPE,
+        STOCK_CODE,
+        USER_ID,
+        QUANTITY,
+        PRICE,
+        FEE,
+        CREATED_DATE,
+        UPDATED_DATE
+        FROM TRANSACTION
+        WHERE ID = #{id}
+        ORDER BY CREATED_DATE DESC
+    </select>
+
+    <insert id="insert" parameterType="java.util.Map">
+        INSERT INTO TRANSACTION VALUES(null, #{type}, #{stockCode}, #{userId}, #{quantity}, #{price}, #{fee}, NOW(), NOW());
+    </insert>
+</mapper>

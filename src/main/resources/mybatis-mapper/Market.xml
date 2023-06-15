@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaopaysec.stock.repository.MarketRepository">
+
+    <select id="getStocks" parameterType="com.kakaopaysec.stock.utils.Pageable" resultType="com.kakaopaysec.stock.models.Market">
+        SELECT  S.ID,
+                S.STOCK_CODE,
+                S.STOCK_NAME,
+                CASE WHEN SPH.YESTERDAY_CLOSE_PRICE = 0 THEN (SPH.CURRENT_PRICE - SPH.OPEN_PRICE) <!-- 첫 상장 주식인경우 시가 기준으로 상승 및 하락 계산 -->
+                     ELSE (SPH.CURRENT_PRICE - SPH.YESTERDAY_CLOSE_PRICE) <!-- 어제 종가 기준으로 상승 및 하락 백분율 계산 -->
+                END AS DIFF_PRICE,
+                CASE WHEN SPH.OPEN_PRICE = 0 THEN 0.00
+                     WHEN SPH.YESTERDAY_CLOSE_PRICE = 0 THEN CAST((SPH.CURRENT_PRICE - SPH.OPEN_PRICE) / CAST(SPH.OPEN_PRICE AS FLOAT) * 100 AS DECIMAL(20, 2)) <!-- 첫 상장 주식인경우 시가 기준으로 상승 및 하락 백분율 계산 -->
+                     ELSE CAST((SPH.CURRENT_PRICE - SPH.YESTERDAY_CLOSE_PRICE) / CAST(SPH.OPEN_PRICE AS FLOAT)  * 100 AS DECIMAL(20, 2)) <!-- 어제 종가 기준으로 상승 및 하락 백분율 계산 -->
+                END AS PERCENTAGE_PRICE,
+                SPH.YESTERDAY_CLOSE_PRICE,
+                SPH.CURRENT_PRICE,
+                SPH.OPEN_PRICE,
+                SPH.CLOSE_PRICE,
+                SV.VIEWS_COUNT,
+                SPH.TRANSACTION_VOLUME
+        FROM STOCKS S
+        INNER JOIN STOCKS_PRICE_HISTORY SPH ON SPH.ID = (SELECT MAX(ID) FROM STOCKS_PRICE_HISTORY WHERE S.STOCK_CODE = STOCK_CODE)
+        INNER JOIN STOCKS_VIEW SV ON SV.STOCK_CODE = S.STOCK_CODE
+        <if test="category != null and ascending != null">
+            ORDER BY ${category} ${ascending}, S.STOCK_NAME ASC
+        </if>
+        <if test="limit != null and offset != null">
+            LIMIT #{limit} OFFSET #{offset}
+        </if>
+    </select>
+</mapper>

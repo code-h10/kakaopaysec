@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaopaysec.stock.repository.StocksRepository">
+
+    <select id="getAll" resultType="com.kakaopaysec.stock.models.Stocks">
+        SELECT ID, STOCK_CODE, STOCK_NAME, CREATED_DATE, UPDATED_DATE
+        FROM STOCKS
+    </select>
+
+    <select id="getStocksPriceHistoryAll" resultType="com.kakaopaysec.stock.models.StocksPriceHistory">
+        SELECT  ID,
+                STOCK_CODE,
+                YESTERDAY_CLOSE_PRICE,
+                OPEN_PRICE,
+                CLOSE_PRICE,
+                HIGH_PRICE,
+                LOW_PRICE,
+                CURRENT_PRICE,
+                TRANSACTION_VOLUME,
+                CREATED_DATE,
+                UPDATED_DATE
+        FROM STOCKS_PRICE_HISTORY;
+    </select>
+
+    <select id="getLatestStocksPriceByStockCode" parameterType="java.lang.String" resultType="com.kakaopaysec.stock.models.StocksPriceHistory">
+        SELECT ID,
+               STOCK_CODE,
+               YESTERDAY_CLOSE_PRICE,
+               OPEN_PRICE,
+               CLOSE_PRICE,
+               HIGH_PRICE,
+               LOW_PRICE,
+               CURRENT_PRICE,
+               TRANSACTION_VOLUME,
+               CREATED_DATE,
+               UPDATED_DATE
+        FROM STOCKS_PRICE_HISTORY
+        WHERE STOCK_CODE = #{stockCode}
+        ORDER BY CREATED_DATE DESC
+        LIMIT 1
+    </select>
+
+    <select id="getByStockCode" parameterType="java.lang.String" resultType="com.kakaopaysec.stock.models.Stocks">
+        SELECT ID, STOCK_CODE, STOCK_NAME, CREATED_DATE, UPDATED_DATE
+        FROM STOCKS
+        WHERE STOCK_CODE = #{stockCode}
+    </select>
+
+    <select id="getStocksViewByStockCode" parameterType="java.lang.String" resultType="com.kakaopaysec.stock.models.StocksView">
+        SELECT ID, STOCK_CODE, VIEWS_COUNT, CREATED_DATE
+        FROM STOCKS_VIEW
+        WHERE STOCK_CODE = #{stockCode}
+    </select>
+
+    <update id="updateViewsCountByStockCode" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE STOCKS_VIEW
+            SET VIEWS_COUNT = #{item.viewsCount}
+            WHERE STOCK_CODE = #{item.stockCode}
+        </foreach>
+    </update>
+
+    <update id="updateCurrentPriceByStockCode" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE STOCKS_PRICE_HISTORY
+            SET CURRENT_PRICE = #{item.currentPrice},
+                TRANSACTION_VOLUME = #{item.transactionVolume}
+            WHERE STOCK_CODE = #{item.stockCode} AND ID = #{item.id}
+        </foreach>
+    </update>
+
+    <update id="updateStocksPriceHistory" parameterType="com.kakaopaysec.stock.models.StocksPriceHistory">
+        UPDATE STOCKS_PRICE_HISTORY
+        <set>
+            CURRENT_PRICE = #{currentPrice},
+            TRANSACTION_VOLUME = #{transactionVolume},
+            HIGH_PRICE = #{highPrice},
+            LOW_PRICE = #{lowPrice},
+            OPEN_PRICE = #{openPrice},
+            CLOSE_PRICE = #{closePrice}
+        </set>
+        WHERE STOCK_CODE = #{stockCode} AND ID = #{id}
+    </update>
+
+    <insert id="insert" parameterType="com.kakaopaysec.stock.models.Stocks">
+        INSERT INTO STOCKS VALUES(null, #{stockCode}, #{stockName}, NOW(), NOW());
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM STOCKS WHERE ID = #{id}
+    </delete>
+</mapper>
